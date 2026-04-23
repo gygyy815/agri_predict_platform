@@ -38,13 +38,13 @@ agri_predict_platform/
 ```bash
 git clone https://github.com/yourusername/agri-predict.git
 cd agri-predict
-Create a virtual environment and activate it
+2.Create a virtual environment and activate it
 python -m venv venv
 # Windows
 venv\Scripts\activate
 # macOS/Linux
 source venv/bin/activate
-Install dependencies
+3.Install dependencies
 pip install -r requirements.txt
 Running the Project
 
@@ -62,13 +62,13 @@ Using ngrok for Public Access (Optional)
 
 If you want to share the app with others:
 
-Install ngrok (https://ngrok.com
+1.Install ngrok (https://ngrok.com
 ) and authenticate:
 ngrok config add-authtoken YOUR_AUTH_TOKEN
-Start a tunnel to your local Flask server:
+2.Start a tunnel to your local Flask server:
 ngrok http 5000
-ngrok will give a public HTTPS URL (e.g., https://abcd1234.ngrok-free.app)
-Share this URL; anyone with internet access can use your platform.
+3.ngrok will give a public HTTPS URL (e.g., https://abcd1234.ngrok-free.app)
+4.Share this URL; anyone with internet access can use your platform.
 
 Note: Free ngrok URLs change each session. Keep Flask and ngrok running.
 
@@ -85,11 +85,14 @@ Date: YYYY-MM-DD
 Price: Historical product price (e.g., yuan/kg)
 Production: Monthly production
 Demand: Monthly demand
+
 Notes
+
 Use ARIMA for time series trend prediction
 Linear Regression requires Production and Demand columns
 LSTM may take longer to train depending on data size
 Ensure uploads/ folder exists with write permission for saving files
+
 License
 
 This project is for educational and prototype purposes.
