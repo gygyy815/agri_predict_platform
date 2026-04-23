@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriPredict - Agricultural Price Forecasting</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        main {
+            max-width: 700px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        select, input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        #preview {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-family: "Courier New", monospace;
+            background-color: #f9f9f9;
+            white-space: pre;
+            border-radius: 5px;
+        }
+        #progress-container {
+            width: 100%;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        #progress-bar {
+            width: 0%;
+            height: 20px;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            text-align: center;
+            color: white;
+            line-height: 20px;
+            font-size: 12px;
+        }
+        footer {
+            text-align: center;
+            color: #777;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>AgriPredict - Agricultural Price Forecasting Platform</header>
+    <main>
+        <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+            <label for="model">Select Prediction Model:</label>
+            <select name="model" id="model" required>
+                <option value="">-- Select a Model --</option>
+                <option value="ARIMA">ARIMA</option>
+                <option value="LinearRegression">Linear Regression</option>
+                <option value="LSTM">LSTM</option>
+            </select>
+
+            <label for="fileInput">Upload CSV File:</label>
+            <input type="file" name="file" id="fileInput" accept=".csv" required>
+
+            <div id="preview"></div>
+
+            <div id="progress-container">
+                <div id="progress-bar">0%</div>
+            </div>
+
+            <input type="submit" value="Upload and Predict">
+        </form>
+    </main>
+    <footer>© 2026 AgriPredict. All rights reserved.</footer>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const preview = document.getElementById('preview');
+        const form = document.getElementById('uploadForm');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+
+        // CSV preview functionality
+        fileInput.addEventListener('change', () => {
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const lines = e.target.result.split('\n').slice(0, 10);
+                    preview.textContent = lines.join('\n');
+                };
+                reader.readAsText(file);
+            } else {
+                preview.textContent = '';
+            }
+        });
+
+        // AJAX upload with progress bar
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('Please select a CSV file first.');
+                return;
+            }
+
+            const formData = new FormData(form);
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/upload', true);
+
+            xhr.upload.onprogress = function(event) {
+                if (event.lengthComputable) {
+                    const percent = Math.round((event.loaded / event.total) * 100);
+                    progressContainer.style.display = 'block';
+                    progressBar.style.width = percent + '%';
+                    progressBar.textContent = percent + '%';
+                }
+            };
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    document.body.innerHTML = xhr.responseText;
+                } else {
+                    alert('Upload failed. Please try again later.');
+                }
+            };
+
+            xhr.onerror = function() {
+                alert('Network error. Please check your connection.');
+            };
+
+            xhr.send(formData);
+        });
+    </script>
+</body>
+</html>

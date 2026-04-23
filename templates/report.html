@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AgriPredict Report - {{ model_name }}</title>
+    <style>
+        @media print {
+            body { margin: 0; }
+            .no-print { display: none; }
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 { color: #4CAF50; }
+        .advice-box {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4CAF50;
+        }
+        .data-table { margin-bottom: 20px; }
+        .chart { margin-bottom: 20px; }
+        .footer { text-align: center; color: #777; margin-top: 40px; font-size: 12px; }
+        button {
+            background: #4CAF50; color: white; border: none;
+            padding: 10px 20px; cursor: pointer;
+            border-radius: 5px; font-size: 14px;
+        }
+        button:hover { background: #45a049; }
+    </style>
+</head>
+<body>
+    <h1>AgriPredict Report</h1>
+    <p><strong>Model:</strong> {{ model_name }} | <strong>Generated:</strong> <span id="date"></span></p>
+
+    <div class="advice-box">
+        <h3>AI Advice</h3>
+        {{ advice|safe }}
+    </div>
+
+    <div class="data-table">
+        <h3>Prediction Data</h3>
+        {{ tables[0]|safe }}
+    </div>
+
+    <div class="chart">
+        <h3>Prediction Chart</h3>
+        {{ graph_html|safe }}
+    </div>
+
+    <div class="no-print" style="text-align: center; margin-top: 30px;">
+        <button onclick="window.print()">Print / Save as PDF</button>
+        <p style="font-size: 12px; color: #888;">Click the button above to save this report as PDF</p>
+    </div>
+
+    <div class="footer">© 2026 AgriPredict</div>
+
+    <script>
+        document.getElementById('date').textContent = new Date().toLocaleString();
+    </script>
+</body>
+</html>
