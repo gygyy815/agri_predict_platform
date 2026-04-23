@@ -20,7 +20,6 @@ Users can upload CSV files with historical data, generate price forecasts, view 
 
 ## File Structure
 
-```
 agri_predict_platform/
 ├── app.py              # Main Flask app
 ├── requirements.txt    # Python dependencies
@@ -36,7 +35,6 @@ agri_predict_platform/
 │   └── report.html
 ├── static/             # CSS, JS, images
 └── uploads/            # Folder to store uploaded CSV and results
-```
 ---
 
 ## Setup
