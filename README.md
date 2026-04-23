@@ -38,62 +38,80 @@ agri_predict_platform/
 ```bash
 git clone https://github.com/yourusername/agri-predict.git
 cd agri-predict
-2.Create a virtual environment and activate it
+
+2. **Create a virtual environment and activate it**
+
+```bash
 python -m venv venv
 # Windows
 venv\Scripts\activate
 # macOS/Linux
 source venv/bin/activate
-3.Install dependencies
+
+3. **Install dependencies**
+
+```bash
 pip install -r requirements.txt
-Running the Project
+
+## Running the Project
 
 Start the Flask server:
 
+```bash
 python app.py
 
 Open your browser and go to:
 
+```bash
 http://127.0.0.1:5000
 
 You should see the AgriPredict Platform homepage where you can upload CSV files and select a model.
 
-Using ngrok for Public Access (Optional)
+## Using ngrok for Public Access (Optional)
 
 If you want to share the app with others:
 
-1.Install ngrok (https://ngrok.com
-) and authenticate:
+1. **Install ngrok (https://ngrok.com) and authenticate:**
+
+```bash
 ngrok config add-authtoken YOUR_AUTH_TOKEN
-2.Start a tunnel to your local Flask server:
+
+2. **Start a tunnel to your local Flask server:**
+
+```bash
 ngrok http 5000
-3.ngrok will give a public HTTPS URL (e.g., https://abcd1234.ngrok-free.app)
-4.Share this URL; anyone with internet access can use your platform.
+
+3. **ngrok will give a public HTTPS URL (e.g., https://abcd1234.ngrok-free.app)**
+
+4. **Share this URL; anyone with internet access can use your platform.**
 
 Note: Free ngrok URLs change each session. Keep Flask and ngrok running.
 
-CSV File Format
+## CSV File Format
 
 Example CSV structure:
+
+```csv
 
 Date,Price,Production,Demand
 2025-06-01,24.67,1200,1100
 2025-07-01,24.85,1180,1150
 2025-08-01,25.10,1250,1200
 ...
+
 Date: YYYY-MM-DD
 Price: Historical product price (e.g., yuan/kg)
 Production: Monthly production
 Demand: Monthly demand
 
-Notes
+## Notes
 
 Use ARIMA for time series trend prediction
 Linear Regression requires Production and Demand columns
 LSTM may take longer to train depending on data size
 Ensure uploads/ folder exists with write permission for saving files
 
-License
+## License
 
 This project is for educational and prototype purposes.
 Do not use it for commercial production without proper adjustments.
