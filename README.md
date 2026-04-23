@@ -37,7 +37,6 @@ agri_predict_platform/
 ├── static/             # CSS, JS, images
 └── uploads/            # Folder to store uploaded CSV and results
 ```
-
 ---
 
 ## Setup
@@ -153,6 +152,5 @@ Date,Price,Production,Demand
 
 This project is for educational and prototype purposes.  
 Do not use for commercial production without proper adjustments.
-```
 
 ---
