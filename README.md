@@ -39,8 +39,8 @@ agri_predict_platform/
 
 ## Setup
 
-### 1. Clone the repository
-
+**### 1. Clone the repository
+**
 ```bash
 git clone https://github.com/yourusername/agri-predict.git
 cd agri-predict
